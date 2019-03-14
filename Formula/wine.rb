@@ -187,7 +187,7 @@ class Wine < Formula
           dir = "build-#{arch}"
           dirs << dir
           mkdir_p "#{dir}/engines"
-          system "make", "clean"
+          system "make", "-j4", "clean"
           system "perl", "./Configure", "--prefix=#{libexec}",
                                         "no-ssl2",
                                         "no-ssl3",
@@ -195,14 +195,14 @@ class Wine < Formula
                                         "shared",
                                         "enable-cms",
                                         *openssl_arch_args[arch]
-          system "make", "depend"
-          system "make"
+          system "make", "-j4", "depend"
+          system "make", "-j4"
           cp "include/openssl/opensslconf.h", dir
           cp Dir["*.?.?.?.dylib", "*.a", "apps/openssl"], dir
           cp Dir["engines/**/*.dylib"], "#{dir}/engines"
         end
 
-        system "make", "install"
+        system "make", "-j4", "install"
 
         %w[libcrypto libssl].each do |libname|
           rm_f libexec/"lib/#{libname}.1.0.0.dylib"
@@ -248,14 +248,14 @@ class Wine < Formula
                               "--disable-static",
                               "--program-prefix=g",
                               "--enable-ltdl-install"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("jpeg").stage do
         system "./configure", "--disable-dependency-tracking",
                               "--prefix=#{libexec}",
                               "--disable-static"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("libtiff").stage do
@@ -266,7 +266,7 @@ class Wine < Formula
                               "--without-x",
                               "--with-jpeg-lib-dir=#{libexec}/lib",
                               "--with-jpeg-include-dir=#{libexec}/include"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("little-cms2").stage do
@@ -275,14 +275,14 @@ class Wine < Formula
                               "--disable-static",
                               "--with-jpeg=#{libexec}",
                               "--with-tiff=#{libexec}"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("libpng").stage do
         system "./configure", "--disable-dependency-tracking",
                               "--prefix=#{libexec}",
                               "--disable-static"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("freetype").stage do
@@ -290,14 +290,14 @@ class Wine < Formula
                               "--disable-static",
                               "--without-harfbuzz",
                               *depflags
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("libusb").stage do
         system "./configure", "--disable-dependency-tracking",
                               "--prefix=#{libexec}",
                               "--disable-static"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("webp").stage do
@@ -309,7 +309,7 @@ class Wine < Formula
                               "--enable-libwebpdemux",
                               "--enable-libwebpdecoder",
                               *depflags
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("fontconfig").stage do
@@ -325,7 +325,7 @@ class Wine < Formula
                               "--localstatedir=#{var}/vendored_wine_fontconfig",
                               "--sysconfdir=#{prefix}",
                               *depflags
-        system "make", "install", "RUN_FC_CACHE_TEST=false"
+        system "make", "-j4", "install", "RUN_FC_CACHE_TEST=false"
       end
 
       resource("gd").stage do
@@ -340,14 +340,14 @@ class Wine < Formula
                               "--with-jpeg=#{libexec}",
                               "--with-tiff=#{libexec}",
                               "--with-webp=#{libexec}"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("libgphoto2").stage do
         system "./configure", "--disable-dependency-tracking",
                               "--prefix=#{libexec}",
                               *depflags
-        system "make", "install"
+        system "make", "-j4", "install"
       end
 
       resource("net-snmp").stage do
@@ -368,8 +368,8 @@ class Wine < Formula
                               "--without-perl-modules",
                               "--with-openssl=#{libexec}",
                               *depflags
-        system "make"
-        system "make", "install"
+        system "make", "-j4"
+        system "make", "-j4", "install"
       end
 
       resource("sane-backends").stage do
@@ -385,8 +385,8 @@ class Wine < Formula
           # Workaround for bug in Makefile.am described here:
           # https://lists.alioth.debian.org/pipermail/sane-devel/2017-August/035576.html.
           # Fixed in https://anonscm.debian.org/cgit/sane/sane-backends.git/commit/?id=519ff57
-          system "make"
-          system "make", "install"
+          system "make", "-j4"
+          system "make", "-j4", "install"
         end
       end
 
@@ -397,7 +397,7 @@ class Wine < Formula
                               "--with-default-audio=coreaudio",
                               "--with-module-suffix=.so",
                               "--with-cpu=generic"
-        system "make", "install"
+        system "make", "-j4", "install"
       end
     end
 
@@ -411,7 +411,7 @@ class Wine < Formula
                              "--enable-win64",
                              "--without-x",
                              *depflags
-      system "make", "install"
+      system "make", "-j4", "install"
     end
 
     mkdir "wine-32-build" do
@@ -420,7 +420,7 @@ class Wine < Formula
                              "--with-wine64=../wine-64-build",
                              "--without-x",
                              *depflags
-      system "make", "install"
+      system "make", "-j4", "install"
     end
     (pkgshare/"gecko").install resource("gecko-x86")
     (pkgshare/"gecko").install resource("gecko-x86_64")

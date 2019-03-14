@@ -1,0 +1,20 @@
+os: osx
+osx_image: xcode9.2
+addons:
+  homebrew:
+    packages: 
+    update: true
+script:
+- brew tap esven/core
+- travis_wait 120 brew install --build-bottle esven/core/wine
+- brew bottle esven/core/wine
+- ls -lisah .
+deploy:
+  provider: releases
+  api_key:
+    secure: uYYvW1iBLpLNRfQb63fCfFg2isFOd8mZMaJcxdQXO7pQM1XH9d0NPqZUTVBloSjxAqrM9j+LVKMSU2Qfa3WI8QQHDNmKzFOmzpGej1QGGW0VVhoYmnXy94LXfhFSiQY9jZqdLmiFvAah2sw5lzFaaDD/s1IeUEG5X3V+53gGjaRcKUe0lXo858g8rAwW7PcDk09a8OodkypYIpIn64GjR7OkGuO+Oz5epB0jJ1DlPdKslqCnQi8TfiEOfgHqkwHraVZV63yve+uAQL0k6MtGlmi5Um35IzS+U0llc+G69PFA8WZDk60i9xXSxS+imz5SShRvRQHv7mpklLeqMVpmjPL/IA/qbqbrjK8Rdn7imEeizXpfra3Fjf4MR4NWudYzEqSnwrLJslQSur/IyKakIgWnpAQMdgLa8SlKPG1tTpTh/eMSwTeVZDfnC0obQBvD7OSrsbcGG1ZkFq4jjE75t8dgl5z5EMHYApI9tqRybtSjRed2j6e2a/ZDKcXvKUeP0h+hi3p0A100u7MtQUeFGfAWv2YmwxoMUYZdpPCLp8n0j8kdT3WGTHUwbPfQtsoSLhfMm3TxlrlftmgeGqtUG/x4xEBpq0kx1nX1UZvt2yg1aN+VMLjQTdu9WTUdz60kxEmVTvs4IwW72flT8cWJdF5Vg3NYuPEIdkExOFcCvoE=
+  file: wine--4.3.sierra.bottle.1.tar.gz
+  on:
+    repo: esven/homebrew-core
+  draft: true
+  skip_cleanup: true
