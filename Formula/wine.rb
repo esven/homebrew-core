@@ -7,9 +7,9 @@
 class Wine < Formula
   desc "Run Windows applications without a copy of Microsoft Windows"
   homepage "https://www.winehq.org/"
-  url "https://dl.winehq.org/wine/source/4.0/wine-4.0.tar.xz"
-  mirror "https://downloads.sourceforge.net/project/wine/Source/wine-4.0.tar.xz"
-  sha256 "6736cdee95b2b8bb021ec0c19497ed8cad5ae2c8bfdb7ab5dc687ff92a480d4d"
+  url "https://dl.winehq.org/wine/source/4.x/wine-4.3.tar.xz"
+  mirror "https://downloads.sourceforge.net/project/wine/Source/wine-4.3.tar.xz"
+  sha256 "3db9b50f061087e7ec115a47e44d662a5b8a7fdb44264e637795508a185f0fb4"
   head "https://source.winehq.org/git/wine.git"
 
   bottle do
@@ -27,8 +27,8 @@ class Wine < Formula
   depends_on :macos => :el_capitan
 
   resource "mono" do
-    url "https://dl.winehq.org/wine/wine-mono/4.7.5/wine-mono-4.7.5.msi"
-    sha256 "154d68d476cdedef56f159d837fbb5eef9358a9f85de89f86c189ec4da004b3f"
+    url "https://dl.winehq.org/wine/wine-mono/4.8.0/wine-mono-4.8.0.msi"
+    sha256 "890159ffd1679ca7d45e840e1890caba8c24acbc18c59db1ca718b35a5ab8778"
   end
 
   resource "gecko-x86" do
@@ -42,9 +42,9 @@ class Wine < Formula
   end
 
   resource "openssl" do
-    url "https://www.openssl.org/source/openssl-1.0.2q.tar.gz"
-    mirror "https://dl.bintray.com/homebrew/mirror/openssl--1.0.2p.tar.gz"
-    sha256 "5744cfcbcec2b1b48629f7354203bc1e5e9b5466998bbccc5b5fcde3b18eb684"
+    url "https://www.openssl.org/source/openssl-1.0.2r.tar.gz"
+    mirror "https://dl.bintray.com/homebrew/mirror/openssl--1.0.2r.tar.gz"
+    sha256 "ae51d08bba8a83958e894946f15303ff894d75c2b8bbd44a852b64e3fe11d0d6"
   end
 
   resource "libtool" do
